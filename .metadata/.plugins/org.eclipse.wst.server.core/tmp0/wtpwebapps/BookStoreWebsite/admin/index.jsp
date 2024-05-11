@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Evergeen Book Administrative</title>
+<link rel="stylesheet" href="../css/admin/style.css">
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -40,5 +41,6 @@
 	</div>
 
 	<jsp:include page="footer.jsp" />
+	<script type="text/javascript" src="../js/jquery-3.7.1.min.js"></script>
 </body>
 </html>

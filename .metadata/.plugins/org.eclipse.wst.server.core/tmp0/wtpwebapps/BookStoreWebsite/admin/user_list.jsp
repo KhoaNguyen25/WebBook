@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/common/taglib.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <title>List Users - Evergeen Book Administrative</title>
+<link rel="stylesheet" href="../css/admin/style.css">
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -41,7 +42,7 @@
 					<td>${user.email}</td>
 					<td>${user.fullName}</td>
 					<td><a href="edit_user?id=${user.userId}">Edit</a> &nbsp; <a
-						href="javascript:confirmDelete(${user.userId})">Delete</a></td>
+						href="javascript:void(0);" id="${user.userId}" class="linkDelete">Delete</a></td>
 				</tr>
 			</c:forEach>
 
@@ -49,19 +50,20 @@
 	</div>
 
 	<jsp:include page="footer.jsp" />
+	<script type="text/javascript" src="../js/jquery-3.7.1.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 	<script type="text/javascript">
-		function confirmDelete(userId) {
-
-			if (confirm("Are you sure you want to delete the user width ID "
-					+ userId + " ?")) {
-				//if (userId == 1) {
-					//alert("This is Account User default not delete");
-			//	} else {
-					window.location = "delete_user?id=" + userId;
-				//}
-
-			}
-		}
+	$(document).ready(function(){
+		$(".linkDelete").each(function(){
+			$(this).on('click',function(){
+				var userId = $(this).attr('id');
+				if (confirm("Are you sure you want to delete the user width ID "
+						+ userId + " ?")) {
+						window.location = "delete_user?id=" + userId;
+				}
+			});
+		});
+	});
 	</script>
 </body>
 </html>

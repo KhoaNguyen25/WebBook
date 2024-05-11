@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/common/taglib.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <title>Create New User - Evergeen Book Administrative</title>
+<link rel="stylesheet" href="../css/admin/style.css">
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -23,15 +24,12 @@
 
 	<div align="center">
 		<c:if test="${user != null}">
-			<form action="update_user" method="post" onsubmit="return validateFormInput();">
+			<form action="update_user" method="post" id="id_form">
 			<input type="hidden" name="userId" value="${user.userId}" />
 		</c:if>
 		<c:if test="${user == null}">
-			<form action="create_user" method="post" onsubmit="return validateFormInput();">
+			<form action="create_user" method="post" id="id_form">
 		</c:if>
-		
-		
-
 			<table border="1">
 				<tr>
 					<td>Full Name:</td>
@@ -59,27 +57,36 @@
 
 	<jsp:include page="footer.jsp" />
 </body>
+<script type="text/javascript" src="../js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script type="text/javascript">
-	function validateFormInput() {
-		let fullname = document.getElementById("fullname");
-		let email = document.getElementById("email");
-		let password = document.getElementById("password");
-		if (fullname.value.length == 0) {
-			alert("Please enter FullName!");
-			fullname.focus();
-			return false;
-		}
-		if (email.value.length == 0) {
-			alert("Please enter Email!");
-			fullname.focus();
-			return false;
-		}
-		if (password.value.length == 0) {
-			alert("Please enter Password!");
-			fullname.focus();
-			return false;
-		}
-		return true;
-	}
+	$(document).ready(function(){
+		$("#id_form").validate({
+			rules:{
+				email : {
+					required : true,
+					email: true
+				},
+				fullName: "required",
+				password : {
+					required: true,
+					minlength: 3
+				},
+			},
+			messages:{
+				email: {
+					required: 'Required enter to Email',
+					email: "Please enter the correct email address",
+				},
+				fullName: "Please enter FullName",
+				
+				password: {
+					required: "Please enter password",
+					minlength: "Please enter at least 8 elements"
+					
+				}
+			}
+		});
+	});
 </script>
 </html>
